@@ -135,7 +135,7 @@ public class SwitchButtonTest {
 
         // A buttons with a custom layout
         Label label2 = new Label(shell, SWT.NONE);
-        label2.setText("With custon layout");
+        label2.setText("With custom layout: GridData(SWT.FILL, SWT.FILL, true, true)");
         final SwitchButton button12 = new SwitchButton(shell, SWT.NONE);
         button12.setSelection(true);
         button12.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
