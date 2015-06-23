@@ -39,7 +39,6 @@ public class SwitchButtonTest {
         label.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 
         final SwitchButton button = new SwitchButton(comp, SWT.NONE);
-        button.setSelection(true);
         button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
         return button;
     }
@@ -62,6 +61,7 @@ public class SwitchButtonTest {
         // Disabled
         final SwitchButton button3 = createButton(shell, "Disabled button");
         button3.setEnabled(false);
+        button3.setSelection(true);
 
         // Without glow effect
         final SwitchButton button4 = createButton(shell, "Without glow effect");

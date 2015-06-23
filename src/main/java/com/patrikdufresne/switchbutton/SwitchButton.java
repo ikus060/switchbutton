@@ -568,20 +568,23 @@ public class SwitchButton extends Canvas {
          * Draw background
          */
         // Draw back color
-        gc.setForeground(this.selection ? this.unselectedBackgroundColor : this.selectedBackgroundColor);
-        gc.setBackground(this.selection ? this.unselectedBackgroundColor : this.selectedBackgroundColor);
-        if(!getEnabled()){
+        gc.setForeground(!this.selection ? this.unselectedBackgroundColor : this.selectedBackgroundColor);
+        gc.setBackground(!this.selection ? this.unselectedBackgroundColor : this.selectedBackgroundColor);
+        if (!getEnabled()) {
             gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
             gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
         }
         gc.fillRoundRectangle(x, y, width - 1, height - 1, this.round, this.round);
         // Draw back border
-        gc.setForeground(this.selection ? getUnselectedBorderColor() : getSelectedBorderColor());
+        gc.setForeground(!this.selection ? getUnselectedBorderColor() : getSelectedBorderColor());
+        if (!getEnabled()) {
+            gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+        }
         gc.drawRoundRectangle(x, y, width - 1, height - 1, this.round, this.round);
 
         // Draw Left text
         gc.setForeground(this.selectedForegroundColor);
-        if(!getEnabled()){
+        if (!getEnabled()) {
             gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
         }
         final Point onSize = gc.textExtent(this.textOn, SWT.DRAW_MNEMONIC);
@@ -589,7 +592,7 @@ public class SwitchButton extends Canvas {
 
         // Draw Right text
         gc.setForeground(this.unselectedForegroundColor);
-        if(!getEnabled()){
+        if (!getEnabled()) {
             gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
         }
         final Point offSize = gc.textExtent(this.textOff, SWT.DRAW_MNEMONIC);
@@ -598,13 +601,16 @@ public class SwitchButton extends Canvas {
         // Draw toggle button.
         Rectangle b;
         gc.setBackground(this.buttonBackgroundColor);
-        if (this.selection) {
+        if (!this.selection) {
             b = new Rectangle(x, y, width / 2, height);
         } else {
             b = new Rectangle(x + width - (width / 2), y, width / 2, height);
         }
         gc.fillRoundRectangle(b.x, b.y, b.width, b.height, this.round, this.round);
-        gc.setForeground(this.selection ? this.unselectedBorderColor : this.selectedBorderColor);
+        gc.setForeground(!this.selection ? this.unselectedBorderColor : this.selectedBorderColor);
+        if (!getEnabled()) {
+            gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+        }
         gc.drawRoundRectangle(b.x, b.y, b.width - 1, b.height - 1, this.round, this.round);
 
         // Draw hover line inside the button.
