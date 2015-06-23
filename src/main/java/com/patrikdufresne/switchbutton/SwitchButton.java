@@ -570,6 +570,10 @@ public class SwitchButton extends Canvas {
         // Draw back color
         gc.setForeground(this.selection ? this.unselectedBackgroundColor : this.selectedBackgroundColor);
         gc.setBackground(this.selection ? this.unselectedBackgroundColor : this.selectedBackgroundColor);
+        if(!getEnabled()){
+            gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
+            gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
+        }
         gc.fillRoundRectangle(x, y, width - 1, height - 1, this.round, this.round);
         // Draw back border
         gc.setForeground(this.selection ? getUnselectedBorderColor() : getSelectedBorderColor());
@@ -577,11 +581,17 @@ public class SwitchButton extends Canvas {
 
         // Draw Left text
         gc.setForeground(this.selectedForegroundColor);
+        if(!getEnabled()){
+            gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+        }
         final Point onSize = gc.textExtent(this.textOn, SWT.DRAW_MNEMONIC);
         gc.drawText(this.textOn, x + width / 4 - onSize.x / 2, y + height / 2 - onSize.y / 2, SWT.DRAW_MNEMONIC);
 
         // Draw Right text
         gc.setForeground(this.unselectedForegroundColor);
+        if(!getEnabled()){
+            gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+        }
         final Point offSize = gc.textExtent(this.textOff, SWT.DRAW_MNEMONIC);
         gc.drawText(this.textOff, x + 3 * width / 4 - offSize.x / 2, y + height / 2 - offSize.y / 2, SWT.DRAW_MNEMONIC);
 
