@@ -10,13 +10,13 @@ Originally taken from Opal project (https://code.google.com/a/eclipselabs.org/p/
 
 # Preview
 ## Windows XP
-![alt tag](preview_winxp.png)
+![alt tag](docs/preview_winxp.png)
 
 ## Windows 7
-![alt tag](preview_win7.png)
+![alt tag](docs/preview_win7.png)
 
 ## Gnome 3
-![alt tag](preview_gnome3.png)
+![alt tag](docs/preview_gnome3.png)
 
 # Usage
 For maven project, you need to update you `pom.xml`.
@@ -37,6 +37,11 @@ For maven project, you need to update you `pom.xml`.
     </dependency>
 </dependencies>
 [...]
+```
+In you Java code, you may use this widget like other toggle button. You may also take a look at [SwitchButtonTest.java](src/test/java/SwitchButtonTest.java).
+```
+final SwitchButton button = new SwitchButton(shell, SWT.NONE);
+button.setSelection(true);
 ```
 
 
