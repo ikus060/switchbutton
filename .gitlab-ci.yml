@@ -14,7 +14,6 @@ cache:
 stages:
   - build
   - deploy
-  - publish
 
 before_script:
 - export REVISION="$(curl http://git.patrikdufresne.com/pdsl/maven-scm-version/raw/master/version.sh | bash -)"
@@ -23,21 +22,17 @@ before_script:
 test:
   stage: build
   script:
-  - mvn -B -Drevision=${REVISION} -Dsonar.host.url=http://sonar.patrikdufresne.com -Dsonar.login=$SONAR_TOKEN clean install
+  - apt-get update && apt-get -y install xvfb
+  - xvfb-run mvn -B -Drevision=${REVISION} clean install
 
 sonar:
   stage: build
   allow_failure: true
   script:
-  - mvn -B -Drevision=${REVISION} -Dsonar.host.url=http://sonar.patrikdufresne.com -Dsonar.login=$SONAR_TOKEN clean verify sonar:sonar
+  - apt-get update && apt-get -y install xvfb
+  - xvfb-run mvn -B -Drevision=${REVISION} -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN clean verify sonar:sonar
 
 nexus_deploy:
   stage: deploy
   script:
-  - mvn -B -s ./settings.xml -Drevision=${REVISION} clean install deploy
-
-github_push:
-  stage: publish
-  script:
-  - git push --force https://${GITHUB_USR}:${GITHUB_PWD}@github.com/ikus060/switchbutton.git refs/remotes/origin/${CI_COMMIT_REF_NAME}:refs/heads/${CI_COMMIT_REF_NAME}
-  - git push https://${GITHUB_USR}:${GITHUB_PWD}@github.com/ikus060/switchbutton.git --tags
+  - mvn -B -s ./settings.xml -DskipTests -Drevision=${REVISION} clean install deploy
